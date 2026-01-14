@@ -1,0 +1,919 @@
+<!DOCTYPE html>
+<html class="scroll-smooth" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Kalaikumar Janushan | Quality Assurance Engineer & Full-Stack Developer</title>
+<meta name="description" content="QA Engineer & Full-Stack Developer specializing in test automation, API testing, and building reliable software. Currently QA Intern at Bohar Solutions."/>
+<meta name="keywords" content="QA Engineer, Full-Stack Developer, Test Automation, Playwright, React, Node.js, API Testing"/>
+<meta property="og:title" content="Kalaikumar Janushan | QA Engineer & Full-Stack Developer"/>
+<meta property="og:description" content="Building reliable, scalable, and user-friendly software. QA Intern at Bohar Solutions."/>
+<meta property="og:type" content="website"/>
+<meta property="og:url" content="https://janushan.dev"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,typography"></script>
+<script>
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              primary: "#149ddd",
+              "background-light": "#ffffff",
+              "background-dark": "#040b14",
+            },
+            fontFamily: {
+              display: ["Plus Jakarta Sans", "sans-serif"],
+            },
+            borderRadius: {
+              DEFAULT: "0.5rem",
+            },
+          },
+        },
+      };
+    </script>
+<style>
+        body { font-family: 'Plus Jakarta Sans', sans-serif; }
+        .nav-pill {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 2.5rem;
+            height: 2.5rem;
+            border-radius: 9999px;
+            background-color: rgb(243 244 246);
+            color: rgb(107 114 128);
+            transition: all 0.3s;
+            margin-bottom: 1rem;
+        }
+        .dark .nav-pill {
+            background-color: rgb(31 41 55);
+        }
+        .nav-pill:hover {
+            background-color: #149ddd;
+            color: white;
+            transform: scale(1.1);
+        }
+        .nav-active {
+            background-color: #149ddd;
+            color: white;
+        }
+        .section-title {
+            font-size: 1.875rem;
+            line-height: 2.25rem;
+            font-weight: 700;
+            color: rgb(31 41 55);
+            position: relative;
+            padding-bottom: 1rem;
+            margin-bottom: 2rem;
+        }
+        .dark .section-title {
+            color: white;
+        }
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 3rem;
+            height: 0.25rem;
+            background-color: #149ddd;
+        }
+        .resume-item {
+            padding-left: 1.5rem;
+            border-left: 2px solid rgba(20, 157, 221, 0.3);
+            position: relative;
+            padding-bottom: 1.5rem;
+        }
+        .resume-item::before {
+            content: '';
+            position: absolute;
+            left: -9px;
+            top: 0;
+            width: 1rem;
+            height: 1rem;
+            border-radius: 9999px;
+            border: 2px solid #149ddd;
+            background-color: white;
+        }
+        .dark .resume-item::before {
+            background-color: #040b14;
+        }
+        .typing-text {
+            border-right: 2px solid #149ddd;
+            animation: blink 1s infinite;
+        }
+        @keyframes blink {
+            0%, 50% { border-color: #149ddd; }
+            51%, 100% { border-color: transparent; }
+        }
+        .fade-in {
+            animation: fadeIn 0.8s ease-in;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .scroll-indicator {
+            animation: bounce 2s infinite;
+        }
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-10px); }
+            60% { transform: translateY(-5px); }
+        }
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+        .card-hover:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.7);
+            animation: fadeIn 0.3s;
+        }
+        .modal-content {
+            background-color: white;
+            margin: 5% auto;
+            padding: 2rem;
+            border-radius: 1rem;
+            width: 90%;
+            max-width: 800px;
+            max-height: 80vh;
+            overflow-y: auto;
+            animation: slideDown 0.3s;
+        }
+        .dark .modal-content {
+            background-color: #1f2937;
+            color: white;
+        }
+        @keyframes slideDown {
+            from { transform: translateY(-50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        .success-message {
+            display: none;
+            background-color: #10b981;
+            color: white;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            margin-top: 1rem;
+            animation: slideDown 0.3s;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-gray-700 dark:text-gray-300">
+<!-- Dark Mode Toggle -->
+<button id="darkModeToggle" class="fixed top-6 right-6 z-50 w-12 h-12 rounded-full bg-gray-100 dark:bg-gray-800 flex items-center justify-center text-gray-600 dark:text-gray-400 hover:bg-primary hover:text-white transition-all shadow-lg" aria-label="Toggle dark mode">
+<span class="material-symbols-outlined">dark_mode</span>
+</button>
+
+<nav class="fixed left-6 top-1/2 -translate-y-1/2 z-50 hidden md:flex flex-col space-y-2">
+<a class="group relative flex items-center" href="#hero">
+<span class="nav-pill nav-active"><span class="material-symbols-outlined text-[20px]">home</span></span>
+<span class="absolute left-14 opacity-0 group-hover:opacity-100 bg-gray-900 text-white text-xs py-1 px-3 rounded pointer-events-none transition-opacity">Home</span>
+</a>
+<a class="group relative flex items-center" href="#about">
+<span class="nav-pill"><span class="material-symbols-outlined text-[20px]">person</span></span>
+<span class="absolute left-14 opacity-0 group-hover:opacity-100 bg-gray-900 text-white text-xs py-1 px-3 rounded pointer-events-none transition-opacity">About</span>
+</a>
+<a class="group relative flex items-center" href="#resume">
+<span class="nav-pill"><span class="material-symbols-outlined text-[20px]">description</span></span>
+<span class="absolute left-14 opacity-0 group-hover:opacity-100 bg-gray-900 text-white text-xs py-1 px-3 rounded pointer-events-none transition-opacity">Resume</span>
+</a>
+<a class="group relative flex items-center" href="#services">
+<span class="nav-pill"><span class="material-symbols-outlined text-[20px]">settings</span></span>
+<span class="absolute left-14 opacity-0 group-hover:opacity-100 bg-gray-900 text-white text-xs py-1 px-3 rounded pointer-events-none transition-opacity">Services</span>
+</a>
+<a class="group relative flex items-center" href="#portfolio">
+<span class="nav-pill"><span class="material-symbols-outlined text-[20px]">grid_view</span></span>
+<span class="absolute left-14 opacity-0 group-hover:opacity-100 bg-gray-900 text-white text-xs py-1 px-3 rounded pointer-events-none transition-opacity">Portfolio</span>
+</a>
+<a class="group relative flex items-center" href="#contact">
+<span class="nav-pill"><span class="material-symbols-outlined text-[20px]">mail</span></span>
+<span class="absolute left-14 opacity-0 group-hover:opacity-100 bg-gray-900 text-white text-xs py-1 px-3 rounded pointer-events-none transition-opacity">Contact</span>
+</a>
+</nav>
+
+<!-- Hero Section -->
+<section class="min-h-screen relative flex items-center overflow-hidden" id="hero">
+<div class="container mx-auto px-6 md:px-24 grid md:grid-cols-2 gap-12 items-center relative z-10">
+<div class="fade-in relative z-10">
+<h1 class="text-5xl md:text-7xl font-extrabold text-gray-900 dark:text-white mb-4">
+                    Kalaikumar Janushan
+                </h1>
+<p class="text-2xl md:text-3xl text-gray-600 dark:text-gray-400 mb-4">
+                    <span id="typing-text">Quality Assurance Engineer & Full-Stack Developer</span>
+                </p>
+<p class="text-lg text-gray-500 dark:text-gray-400 mb-8">
+                    Building reliable, scalable, and user-friendly software
+                </p>
+<div class="flex flex-wrap gap-4 mb-8">
+<a href="#contact" class="bg-primary hover:bg-opacity-90 text-white font-semibold py-3 px-6 rounded-full transition-all shadow-md hover:shadow-lg transform hover:scale-105 flex items-center space-x-2">
+<span class="material-symbols-outlined text-sm">download</span>
+<span>Download Resume</span>
+</a>
+<a href="#portfolio" class="bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 text-gray-900 dark:text-white font-semibold py-3 px-6 rounded-full transition-all shadow-md hover:shadow-lg transform hover:scale-105 flex items-center space-x-2">
+<span class="material-symbols-outlined text-sm">grid_view</span>
+<span>View Projects</span>
+</a>
+<a href="#contact" class="border-2 border-primary text-primary hover:bg-primary hover:text-white font-semibold py-3 px-6 rounded-full transition-all transform hover:scale-105 flex items-center space-x-2">
+<span class="material-symbols-outlined text-sm">mail</span>
+<span>Contact Me</span>
+</a>
+</div>
+<div class="flex space-x-4 mb-8">
+<a class="w-10 h-10 flex items-center justify-center rounded-full bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 hover:bg-primary hover:text-white transition-all transform hover:scale-110" href="https://github.com/Janushan11" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+<span class="material-symbols-outlined text-sm">code</span>
+</a>
+<a class="w-10 h-10 flex items-center justify-center rounded-full bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 hover:bg-primary hover:text-white transition-all transform hover:scale-110" href="mailto:januzebra1972@gmail.com" aria-label="Email">
+<span class="material-symbols-outlined text-sm">alternate_email</span>
+</a>
+<a class="w-10 h-10 flex items-center justify-center rounded-full bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 hover:bg-primary hover:text-white transition-all transform hover:scale-110" href="https://www.linkedin.com/in/kalaikumar-janushan-94943a334/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+<span class="material-symbols-outlined text-sm">share</span>
+</a>
+</div>
+<div class="flex items-center space-x-2 text-sm text-gray-500 dark:text-gray-400 scroll-indicator">
+<span class="material-symbols-outlined">keyboard_arrow_down</span>
+<span>Scroll to explore</span>
+</div>
+</div>
+<div class="hidden md:block fixed right-0 top-0 h-screen w-1/2 z-0">
+<img alt="Professional Portrait" class="h-full w-full object-cover object-center grayscale hover:grayscale-0 transition-all duration-700 fade-in" src="/profile.jpg"/>
+<div class="absolute inset-0 bg-gradient-to-l from-transparent via-transparent to-white dark:to-background-dark pointer-events-none"></div>
+</div>
+</div>
+</section>
+
+<!-- About Section -->
+<section class="py-24 bg-gray-50 dark:bg-gray-900/50 relative z-10" id="about">
+<div class="container mx-auto px-6 md:px-24">
+<h2 class="section-title">About</h2>
+<div class="grid md:grid-cols-12 gap-12">
+<div class="md:col-span-4">
+<div class="bg-orange-100 dark:bg-orange-900/20 rounded-2xl p-8 flex items-center justify-center card-hover">
+<img alt="Profile Illustration" class="rounded-xl w-full" src="/profile2.jpg"/>
+</div>
+</div>
+<div class="md:col-span-8">
+<h3 class="text-2xl font-bold text-primary mb-4">Intern Quality Assurance Engineer & Undergraduate</h3>
+<div class="space-y-3 mb-8">
+<div class="flex items-start space-x-3">
+<span class="text-primary text-xl mt-1">✔</span>
+<div>
+<span class="font-semibold">QA Intern at Bohar Solutions</span>
+<p class="text-sm text-gray-600 dark:text-gray-400">Working on retail POS systems, API testing, and CI/CD workflows</p>
+</div>
+</div>
+<div class="flex items-start space-x-3">
+<span class="text-primary text-xl mt-1">✔</span>
+<div>
+<span class="font-semibold">Experience in REST API, Playwright, CI/CD</span>
+<p class="text-sm text-gray-600 dark:text-gray-400">Functional, integration, and regression testing expertise</p>
+</div>
+</div>
+<div class="flex items-start space-x-3">
+<span class="text-primary text-xl mt-1">✔</span>
+<div>
+<span class="font-semibold">Strong in test design & defect analysis</span>
+<p class="text-sm text-gray-600 dark:text-gray-400">Detail-oriented approach to quality assurance</p>
+</div>
+</div>
+<div class="flex items-start space-x-3">
+<span class="text-primary text-xl mt-1">✔</span>
+<div>
+<span class="font-semibold">Passionate about building quality software</span>
+<p class="text-sm text-gray-600 dark:text-gray-400">Full-stack development with React, Node.js, MongoDB</p>
+</div>
+</div>
+</div>
+<div class="bg-primary/10 dark:bg-primary/20 rounded-xl p-6 mb-8">
+<h4 class="font-bold text-lg mb-3 text-gray-800 dark:text-white">Currently focusing on:</h4>
+<ul class="space-y-2 text-sm">
+<li class="flex items-center space-x-2">
+<span class="material-symbols-outlined text-primary text-lg">arrow_forward</span>
+<span>Automation testing (Playwright)</span>
+</li>
+<li class="flex items-center space-x-2">
+<span class="material-symbols-outlined text-primary text-lg">arrow_forward</span>
+<span>API & database validation</span>
+</li>
+<li class="flex items-center space-x-2">
+<span class="material-symbols-outlined text-primary text-lg">arrow_forward</span>
+<span>UI/UX fundamentals</span>
+</li>
+</ul>
+</div>
+<div class="grid md:grid-cols-2 gap-y-4 gap-x-12">
+<div class="flex items-center space-x-2">
+<span class="material-symbols-outlined text-primary text-lg">chevron_right</span>
+<span class="font-bold">Phone:</span> <span><a href="tel:+94750424523" class="text-primary hover:underline">+94-75-042-4523</a></span>
+</div>
+<div class="flex items-center space-x-2">
+<span class="material-symbols-outlined text-primary text-lg">chevron_right</span>
+<span class="font-bold">Location:</span> <span>Jaffna, Sri Lanka</span>
+</div>
+<div class="flex items-center space-x-2">
+<span class="material-symbols-outlined text-primary text-lg">chevron_right</span>
+<span class="font-bold">Email:</span> <span><a href="mailto:januzebra1972@gmail.com" class="text-primary hover:underline">januzebra1972@gmail.com</a></span>
+</div>
+<div class="flex items-center space-x-2">
+<span class="material-symbols-outlined text-primary text-lg">chevron_right</span>
+<span class="font-bold">Degree:</span> <span>BSc (Hons) IT</span>
+</div>
+<div class="flex items-center space-x-2">
+<span class="material-symbols-outlined text-primary text-lg">chevron_right</span>
+<span class="font-bold">GitHub:</span> <span><a href="https://github.com/Janushan11" target="_blank" rel="noopener noreferrer" class="text-primary hover:underline">github.com/Janushan11</a></span>
+</div>
+<div class="flex items-center space-x-2">
+<span class="material-symbols-outlined text-primary text-lg">chevron_right</span>
+<span class="font-bold">LinkedIn:</span> <span><a href="https://www.linkedin.com/in/kalaikumar-janushan-94943a334/" target="_blank" rel="noopener noreferrer" class="text-primary hover:underline">View Profile</a></span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<!-- Resume Section -->
+<section class="py-24 relative z-10 bg-white dark:bg-background-dark" id="resume">
+<div class="container mx-auto px-6 md:px-24">
+<div class="flex justify-between items-center mb-8">
+<h2 class="section-title mb-0">Resume</h2>
+<button onclick="downloadResume()" class="bg-primary hover:bg-opacity-90 text-white font-semibold py-2 px-6 rounded-full transition-all shadow-md hover:shadow-lg transform hover:scale-105 flex items-center space-x-2">
+<span class="material-symbols-outlined text-sm">download</span>
+<span>Download Resume</span>
+</button>
+</div>
+<p class="mb-12">Check out my resume and work experience.</p>
+<div class="grid md:grid-cols-2 gap-12">
+<div>
+<h3 class="text-2xl font-bold mb-6 text-gray-800 dark:text-white flex items-center space-x-2">
+<span class="material-symbols-outlined text-primary">school</span>
+<span>Summary &amp; Education</span>
+</h3>
+<div class="resume-item">
+<h4 class="text-lg font-bold uppercase text-primary mb-2">JANUSHAN KALAIKUMAR</h4>
+<p class="italic mb-4 text-sm">I am an enthusiastic undergraduate pursuing a BSc (Hons) in Information Technology, with a strong foundation in software development, quality assurance, and problem-solving. I have hands-on experience working on academic and practical projects involving system analysis, test case design, defect identification, and functional validation.</p>
+<ul class="list-disc list-inside space-y-1 text-sm">
+<li>Jaffna, Sri Lanka</li>
+<li>januzebra1972@gmail.com</li>
+<li>+94-75-042-4523</li>
+<li>https://github.com/Janushan11</li>
+</ul>
+</div>
+<div class="resume-item">
+<h4 class="text-lg font-bold uppercase text-primary mb-1">BSC (HONS) IN INFORMATION TECHNOLOGY</h4>
+<span class="inline-block bg-gray-100 dark:bg-gray-800 px-3 py-1 text-xs font-semibold mb-3">2023 – 2027</span>
+<p class="italic mb-2 font-medium">Sri Lanka Institute of Information Technology (SLIIT), Malabe, Sri Lanka</p>
+<p class="text-sm">Pursuing Bachelor of Science (Honors) in Information Technology. Focusing on software development, quality assurance, system analysis, and modern web technologies. Building expertise through academic projects and practical applications.</p>
+</div>
+</div>
+<div>
+<h3 class="text-2xl font-bold mb-6 text-gray-800 dark:text-white flex items-center space-x-2">
+<span class="material-symbols-outlined text-primary">work</span>
+<span>Professional Experience</span>
+</h3>
+<div class="resume-item">
+<h4 class="text-lg font-bold uppercase text-primary mb-1">INTERN QUALITY ASSURANCE ENGINEER</h4>
+<span class="inline-block bg-gray-100 dark:bg-gray-800 px-3 py-1 text-xs font-semibold mb-3">Aug 2024 – Present</span>
+<p class="italic mb-2 font-medium">Bohar Solutions, Jaffna, Sri Lanka</p>
+<ul class="list-disc list-inside space-y-2 text-sm">
+<li><strong>Designed & executed 150+ test cases</strong> for retail POS systems, ensuring comprehensive coverage</li>
+<li><strong>Reduced production defects by 30%</strong> through structured testing and early defect identification</li>
+<li><strong>Automated smoke tests using Playwright</strong>, improving CI/CD pipeline efficiency</li>
+<li>Collaborate with developers and internal stakeholders to analyze business and functional requirements for retail POS systems, including inventory and employee management modules</li>
+<li>Perform functional, integration, and regression testing on RESTful APIs and database-driven workflows</li>
+<li>Support release planning and deployment validation by participating in Git-based CI/CD workflows</li>
+</ul>
+</div>
+<div class="resume-item">
+<h4 class="text-lg font-bold uppercase text-primary mb-1">CUSTOMER SERVICE AGENT</h4>
+<span class="inline-block bg-gray-100 dark:bg-gray-800 px-3 py-1 text-xs font-semibold mb-3">2022 – 2023</span>
+<p class="italic mb-2 font-medium">LB Finance PLC, Sri Lanka</p>
+<ul class="list-disc list-inside space-y-2 text-sm">
+<li>Provided exceptional customer support by professionally handling customer inquiries, efficiently resolving issues, and ensuring a positive experience across all communication channels</li>
+<li>Maintained up-to-date product knowledge, accurately documented customer interactions, and collaborated with cross-functional teams to continuously improve customer service quality and support processes</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<!-- Services Section -->
+<section class="py-24 bg-gray-50 dark:bg-gray-900/50 relative z-10" id="services">
+<div class="container mx-auto px-6 md:px-24">
+<h2 class="section-title">Services</h2>
+<p class="mb-12">What I can do for you.</p>
+<div class="grid md:grid-cols-3 gap-8">
+<div class="bg-background-light dark:bg-background-dark p-8 rounded-xl shadow-sm hover:shadow-lg transition-all border border-gray-100 dark:border-gray-800 group card-hover">
+<div class="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-6 group-hover:bg-primary transition-colors">
+<span class="material-symbols-outlined text-primary group-hover:text-white">language</span>
+</div>
+<h3 class="text-xl font-bold mb-2">Quality Assurance</h3>
+<p class="text-xs text-primary mb-3 font-semibold">Problem: Bugs reaching production</p>
+<p class="text-sm text-gray-600 dark:text-gray-400 mb-4">Solution: Structured testing, automation & API validation</p>
+<div class="flex flex-wrap gap-2">
+<span class="text-xs bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded">Startups</span>
+<span class="text-xs bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded">ERP Systems</span>
+<span class="text-xs bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded">SaaS Apps</span>
+</div>
+</div>
+<div class="bg-background-light dark:bg-background-dark p-8 rounded-xl shadow-sm hover:shadow-lg transition-all border border-gray-100 dark:border-gray-800 group card-hover">
+<div class="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-6 group-hover:bg-primary transition-colors">
+<span class="material-symbols-outlined text-primary group-hover:text-white">code</span>
+</div>
+<h3 class="text-xl font-bold mb-2">Full-Stack Development</h3>
+<p class="text-xs text-primary mb-3 font-semibold">Problem: Need scalable web solutions</p>
+<p class="text-sm text-gray-600 dark:text-gray-400 mb-4">Solution: Modern React, Node.js, MongoDB stack with clean architecture</p>
+<div class="flex flex-wrap gap-2">
+<span class="text-xs bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded">Web Apps</span>
+<span class="text-xs bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded">APIs</span>
+<span class="text-xs bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded">E-commerce</span>
+</div>
+</div>
+<div class="bg-background-light dark:bg-background-dark p-8 rounded-xl shadow-sm hover:shadow-lg transition-all border border-gray-100 dark:border-gray-800 group card-hover">
+<div class="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-6 group-hover:bg-primary transition-colors">
+<span class="material-symbols-outlined text-primary group-hover:text-white">api</span>
+</div>
+<h3 class="text-xl font-bold mb-2">API Testing</h3>
+<p class="text-xs text-primary mb-3 font-semibold">Problem: API reliability issues</p>
+<p class="text-sm text-gray-600 dark:text-gray-400 mb-4">Solution: RESTful API testing, database validation, and frontend integration</p>
+<div class="flex flex-wrap gap-2">
+<span class="text-xs bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded">REST APIs</span>
+<span class="text-xs bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded">Database</span>
+<span class="text-xs bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded">Integration</span>
+</div>
+</div>
+<div class="bg-background-light dark:bg-background-dark p-8 rounded-xl shadow-sm hover:shadow-lg transition-all border border-gray-100 dark:border-gray-800 group card-hover">
+<div class="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-6 group-hover:bg-primary transition-colors">
+<span class="material-symbols-outlined text-primary group-hover:text-white">smartphone</span>
+</div>
+<h3 class="text-xl font-bold mb-2">UI/UX Design</h3>
+<p class="text-xs text-primary mb-3 font-semibold">Problem: Poor user experience</p>
+<p class="text-sm text-gray-600 dark:text-gray-400 mb-4">Solution: Intuitive interfaces, clear visuals, and seamless user flows</p>
+<div class="flex flex-wrap gap-2">
+<span class="text-xs bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded">Web Design</span>
+<span class="text-xs bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded">Mobile Apps</span>
+<span class="text-xs bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded">Figma</span>
+</div>
+</div>
+<div class="bg-background-light dark:bg-background-dark p-8 rounded-xl shadow-sm hover:shadow-lg transition-all border border-gray-100 dark:border-gray-800 group card-hover">
+<div class="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-6 group-hover:bg-primary transition-colors">
+<span class="material-symbols-outlined text-primary group-hover:text-white">settings</span>
+</div>
+<h3 class="text-xl font-bold mb-2">CI/CD & DevOps</h3>
+<p class="text-xs text-primary mb-3 font-semibold">Problem: Manual deployment risks</p>
+<p class="text-sm text-gray-600 dark:text-gray-400 mb-4">Solution: Git-based CI/CD workflows, automated testing, and deployment validation</p>
+<div class="flex flex-wrap gap-2">
+<span class="text-xs bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded">CI/CD</span>
+<span class="text-xs bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded">Git</span>
+<span class="text-xs bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded">Automation</span>
+</div>
+</div>
+<div class="bg-background-light dark:bg-background-dark p-8 rounded-xl shadow-sm hover:shadow-lg transition-all border border-gray-100 dark:border-gray-800 group card-hover">
+<div class="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-6 group-hover:bg-primary transition-colors">
+<span class="material-symbols-outlined text-primary group-hover:text-white">analytics</span>
+</div>
+<h3 class="text-xl font-bold mb-2">System Analysis</h3>
+<p class="text-xs text-primary mb-3 font-semibold">Problem: Unclear requirements</p>
+<p class="text-sm text-gray-600 dark:text-gray-400 mb-4">Solution: Business analysis, requirement translation, and stakeholder collaboration</p>
+<div class="flex flex-wrap gap-2">
+<span class="text-xs bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded">Analysis</span>
+<span class="text-xs bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded">Requirements</span>
+<span class="text-xs bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded">Planning</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<!-- Portfolio Section -->
+<section class="py-24 relative z-10 bg-white dark:bg-background-dark" id="portfolio">
+<div class="container mx-auto px-6 md:px-24">
+<h2 class="section-title">Portfolio</h2>
+<p class="mb-12">My works from the last 5 years.</p>
+<div class="flex justify-center flex-wrap gap-4 mb-12">
+<button class="px-6 py-2 rounded-full bg-primary text-white text-sm font-semibold" onclick="filterProjects('All')">All</button>
+<button class="px-6 py-2 rounded-full bg-gray-100 dark:bg-gray-800 text-sm font-semibold hover:bg-primary hover:text-white transition-all" onclick="filterProjects('QA')">QA Projects</button>
+<button class="px-6 py-2 rounded-full bg-gray-100 dark:bg-gray-800 text-sm font-semibold hover:bg-primary hover:text-white transition-all" onclick="filterProjects('Full-Stack')">Full-Stack</button>
+<button class="px-6 py-2 rounded-full bg-gray-100 dark:bg-gray-800 text-sm font-semibold hover:bg-primary hover:text-white transition-all" onclick="filterProjects('UI/UX')">UI/UX</button>
+</div>
+<div class="grid md:grid-cols-3 gap-6" id="portfolio-grid">
+<div class="group relative overflow-hidden rounded-xl bg-gray-200 dark:bg-gray-800 aspect-[4/3] cursor-pointer card-hover" onclick="openProjectModal('mercury')">
+<div class="absolute inset-0 bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center">
+<span class="text-white text-4xl font-bold">Mercury FM</span>
+</div>
+<div class="absolute inset-0 bg-primary/80 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col items-center justify-center space-y-2 p-4">
+<p class="text-white text-sm font-semibold text-center">Smart Booking & Management System</p>
+<p class="text-white text-xs text-center">React, Node.js, Express, MongoDB</p>
+<span class="material-symbols-outlined text-white text-3xl">visibility</span>
+</div>
+</div>
+<div class="group relative overflow-hidden rounded-xl bg-gray-200 dark:bg-gray-800 aspect-[4/3] cursor-pointer card-hover" onclick="openProjectModal('fitfuel')">
+<div class="absolute inset-0 bg-gradient-to-br from-green-500 to-teal-600 flex items-center justify-center">
+<span class="text-white text-4xl font-bold">FitFuel</span>
+</div>
+<div class="absolute inset-0 bg-primary/80 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col items-center justify-center space-y-2 p-4">
+<p class="text-white text-sm font-semibold text-center">Mobile Application</p>
+<p class="text-white text-xs text-center">Figma Design</p>
+<span class="material-symbols-outlined text-white text-3xl">visibility</span>
+</div>
+</div>
+<div class="group relative overflow-hidden rounded-xl bg-gray-200 dark:bg-gray-800 aspect-[4/3] cursor-pointer card-hover" onclick="openProjectModal('venus')">
+<div class="absolute inset-0 bg-gradient-to-br from-orange-500 to-red-600 flex items-center justify-center">
+<span class="text-white text-4xl font-bold">Venus PC</span>
+</div>
+<div class="absolute inset-0 bg-primary/80 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col items-center justify-center space-y-2 p-4">
+<p class="text-white text-sm font-semibold text-center">PC Care Web Application</p>
+<p class="text-white text-xs text-center">React, Node.js, Express, MongoDB</p>
+<span class="material-symbols-outlined text-white text-3xl">visibility</span>
+</div>
+</div>
+<div class="group relative overflow-hidden rounded-xl bg-gray-200 dark:bg-gray-800 aspect-[4/3] cursor-pointer card-hover" onclick="openProjectModal('helping')">
+<div class="absolute inset-0 bg-gradient-to-br from-pink-500 to-rose-600 flex items-center justify-center">
+<span class="text-white text-4xl font-bold">Helping Birds</span>
+</div>
+<div class="absolute inset-0 bg-primary/80 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col items-center justify-center space-y-2 p-4">
+<p class="text-white text-sm font-semibold text-center">Social Assistance Platform</p>
+<p class="text-white text-xs text-center">React, Node.js, Express, MongoDB</p>
+<span class="material-symbols-outlined text-white text-3xl">visibility</span>
+</div>
+</div>
+<div class="group relative overflow-hidden rounded-xl bg-gray-200 dark:bg-gray-800 aspect-[4/3] cursor-pointer card-hover" onclick="openProjectModal('playwright')">
+<div class="absolute inset-0 bg-gradient-to-br from-indigo-500 to-blue-600 flex items-center justify-center">
+<span class="text-white text-4xl font-bold">Playwright QA</span>
+</div>
+<div class="absolute inset-0 bg-primary/80 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col items-center justify-center space-y-2 p-4">
+<p class="text-white text-sm font-semibold text-center">QA Exam Project</p>
+<p class="text-white text-xs text-center">Playwright, Test Automation</p>
+<span class="material-symbols-outlined text-white text-3xl">visibility</span>
+</div>
+</div>
+<div class="group relative overflow-hidden rounded-xl bg-gray-200 dark:bg-gray-800 aspect-[4/3] cursor-pointer card-hover" onclick="openProjectModal('scout')">
+<div class="absolute inset-0 bg-gradient-to-br from-cyan-500 to-blue-600 flex items-center justify-center">
+<span class="text-white text-4xl font-bold">Scout</span>
+</div>
+<div class="absolute inset-0 bg-primary/80 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col items-center justify-center space-y-2 p-4">
+<p class="text-white text-sm font-semibold text-center">TypeScript Project</p>
+<p class="text-white text-xs text-center">TypeScript, JavaScript</p>
+<span class="material-symbols-outlined text-white text-3xl">visibility</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<!-- Project Modal -->
+<div id="projectModal" class="modal">
+<div class="modal-content">
+<span class="float-right text-gray-500 hover:text-gray-700 dark:hover:text-gray-300 cursor-pointer text-2xl font-bold" onclick="closeProjectModal()">&times;</span>
+<div id="modalContent"></div>
+</div>
+</div>
+
+<!-- Contact Section -->
+<section class="py-24 bg-gray-50 dark:bg-gray-900/50 relative z-10" id="contact">
+<div class="container mx-auto px-6 md:px-24">
+<h2 class="section-title">Contact</h2>
+<p class="mb-4">Feel free to get in touch with me.</p>
+<p class="text-sm text-gray-500 dark:text-gray-400 mb-12">Usually responds within 24 hours 🚀</p>
+<div class="grid md:grid-cols-12 gap-12">
+<div class="md:col-span-4 space-y-8">
+<div class="flex items-start space-x-4">
+<div class="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center flex-shrink-0">
+<span class="material-symbols-outlined text-primary">location_on</span>
+</div>
+<div>
+<h4 class="text-xl font-bold mb-1">Location:</h4>
+<p class="text-sm text-gray-600 dark:text-gray-400">Jaffna, Sri Lanka</p>
+</div>
+</div>
+<div class="flex items-start space-x-4">
+<div class="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center flex-shrink-0">
+<span class="material-symbols-outlined text-primary">mail</span>
+</div>
+<div>
+<h4 class="text-xl font-bold mb-1">Email:</h4>
+<p class="text-sm text-gray-600 dark:text-gray-400"><a href="mailto:januzebra1972@gmail.com" class="text-primary hover:underline">januzebra1972@gmail.com</a></p>
+</div>
+</div>
+<div class="flex items-start space-x-4">
+<div class="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center flex-shrink-0">
+<span class="material-symbols-outlined text-primary">call</span>
+</div>
+<div>
+<h4 class="text-xl font-bold mb-1">Call:</h4>
+<p class="text-sm text-gray-600 dark:text-gray-400"><a href="tel:+94750424523" class="text-primary hover:underline">+94-75-042-4523</a></p>
+</div>
+</div>
+<div class="flex space-x-4 pt-4">
+<a href="https://wa.me/94750424523" target="_blank" class="w-12 h-12 bg-green-500 hover:bg-green-600 text-white rounded-full flex items-center justify-center transition-all transform hover:scale-110" aria-label="WhatsApp">
+<span class="material-symbols-outlined text-sm">chat</span>
+</a>
+<a href="https://www.linkedin.com/in/kalaikumar-janushan-94943a334/" target="_blank" class="w-12 h-12 bg-blue-600 hover:bg-blue-700 text-white rounded-full flex items-center justify-center transition-all transform hover:scale-110" aria-label="LinkedIn">
+<span class="material-symbols-outlined text-sm">share</span>
+</a>
+</div>
+<div class="rounded-xl overflow-hidden h-64 shadow-sm border border-gray-100 dark:border-gray-800">
+<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d126743.58562167748!2d80.0167!3d9.6615!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3af54e8e1c3b3b3b%3A0x3b3b3b3b3b3b3b3b!2sJaffna%2C%20Sri%20Lanka!5e0!3m2!1sen!2sus!4v1234567890123!5m2!1sen!2sus" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Location Map"></iframe>
+</div>
+</div>
+<div class="md:col-span-8">
+<div class="bg-background-light dark:bg-background-dark p-8 rounded-xl shadow-lg">
+<form id="contactForm" action="#" class="grid grid-cols-2 gap-6" method="POST" onsubmit="handleFormSubmit(event)">
+<div class="col-span-2 md:col-span-1">
+<label class="block text-sm font-medium mb-2">Your Name</label>
+<input class="w-full px-4 py-3 rounded-lg border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 focus:ring-primary focus:border-primary" placeholder="John Doe" type="text" required/>
+</div>
+<div class="col-span-2 md:col-span-1">
+<label class="block text-sm font-medium mb-2">Your Email</label>
+<input class="w-full px-4 py-3 rounded-lg border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 focus:ring-primary focus:border-primary" placeholder="john@example.com" type="email" required/>
+</div>
+<div class="col-span-2">
+<label class="block text-sm font-medium mb-2">Subject</label>
+<select class="w-full px-4 py-3 rounded-lg border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 focus:ring-primary focus:border-primary" required>
+<option value="">Select a subject</option>
+<option value="Job Opportunity">Job Opportunity</option>
+<option value="Freelance Work">Freelance Work</option>
+<option value="Collaboration">Collaboration</option>
+<option value="Project Inquiry">Project Inquiry</option>
+<option value="Other">Other</option>
+</select>
+</div>
+<div class="col-span-2">
+<label class="block text-sm font-medium mb-2">Message</label>
+<textarea class="w-full px-4 py-3 rounded-lg border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 focus:ring-primary focus:border-primary" placeholder="Hello, I'd like to talk about..." rows="6" required></textarea>
+</div>
+<div class="col-span-2 flex justify-center">
+<button class="bg-primary hover:bg-opacity-90 text-white font-semibold py-3 px-10 rounded-full transition-all shadow-md transform hover:scale-105" type="submit">
+                                    Send Message
+                                </button>
+</div>
+<div id="successMessage" class="success-message col-span-2">
+<span class="material-symbols-outlined align-middle mr-2">check_circle</span>
+Message sent successfully! I'll get back to you soon.
+</div>
+</form>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<footer class="py-12 border-t border-gray-100 dark:border-gray-800 text-center relative z-10 bg-white dark:bg-background-dark">
+<div class="container mx-auto px-6">
+<p class="text-sm text-gray-500">© Copyright 2024. All Rights Reserved</p>
+<p class="text-xs text-gray-400 mt-2">Designed by Kalaikumar Janushan</p>
+</div>
+</footer>
+
+<script>
+        // Dark Mode Toggle
+        const darkModeToggle = document.getElementById('darkModeToggle');
+        const html = document.documentElement;
+        
+        if (localStorage.getItem('darkMode') === 'enabled' || (!localStorage.getItem('darkMode') && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            html.classList.add('dark');
+        }
+        
+        darkModeToggle.addEventListener('click', () => {
+            html.classList.toggle('dark');
+            localStorage.setItem('darkMode', html.classList.contains('dark') ? 'enabled' : 'disabled');
+            darkModeToggle.querySelector('span').textContent = html.classList.contains('dark') ? 'light_mode' : 'dark_mode';
+        });
+        
+        // Update icon on load
+        if (html.classList.contains('dark')) {
+            darkModeToggle.querySelector('span').textContent = 'light_mode';
+        }
+        
+        // Typing Animation
+        const roles = ['Quality Assurance Engineer', 'Full-Stack Developer', 'UI/UX Enthusiast'];
+        let roleIndex = 0;
+        let charIndex = 0;
+        let isDeleting = false;
+        const typingElement = document.getElementById('typing-text');
+        
+        function typeText() {
+            const currentRole = roles[roleIndex];
+            
+            if (isDeleting) {
+                typingElement.textContent = currentRole.substring(0, charIndex - 1);
+                charIndex--;
+            } else {
+                typingElement.textContent = currentRole.substring(0, charIndex + 1);
+                charIndex++;
+            }
+            
+            if (!isDeleting && charIndex === currentRole.length) {
+                setTimeout(() => { isDeleting = true; }, 2000);
+            } else if (isDeleting && charIndex === 0) {
+                isDeleting = false;
+                roleIndex = (roleIndex + 1) % roles.length;
+            }
+            
+            setTimeout(typeText, isDeleting ? 50 : 100);
+        }
+        
+        if (typingElement) {
+            typeText();
+        }
+        
+        // Navigation Active State
+        const sections = document.querySelectorAll('section');
+        const navLinks = document.querySelectorAll('nav a .nav-pill');
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (pageYOffset >= (sectionTop - sectionHeight / 3)) {
+                    current = section.getAttribute('id');
+                }
+            });
+            navLinks.forEach((link) => {
+                link.classList.remove('nav-active');
+                const parentHref = link.closest('a').getAttribute('href').substring(1);
+                if (parentHref === current) {
+                    link.classList.add('nav-active');
+                }
+            });
+        });
+        
+        // Smooth Scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+        
+        // Portfolio Filter
+        function filterProjects(filter) {
+            document.querySelectorAll('#portfolio button').forEach(btn => {
+                if (btn.textContent.trim() === filter || (filter === 'All' && btn.textContent.trim() === 'All')) {
+                    btn.classList.remove('bg-gray-100', 'dark:bg-gray-800');
+                    btn.classList.add('bg-primary', 'text-white');
+                } else {
+                    btn.classList.remove('bg-primary', 'text-white');
+                    btn.classList.add('bg-gray-100', 'dark:bg-gray-800');
+                }
+            });
+        }
+        
+        // Project Modal
+        const projects = {
+            mercury: {
+                title: 'Mercury FM Smart Booking and Management System',
+                problem: 'Need for efficient booking and management system for radio station operations',
+                role: 'Full-Stack Developer',
+                tech: ['React JS', 'Node JS', 'Express JS', 'MongoDB'],
+                description: 'A comprehensive booking and management system for radio station operations. Features include user management, booking scheduling, and administrative controls.',
+                github: null,
+                live: null
+            },
+            fitfuel: {
+                title: 'FitFuel Mobile Application',
+                problem: 'Need for a user-friendly workout tracking and fitness management solution',
+                role: 'UI/UX Designer',
+                tech: ['Figma'],
+                description: 'Designed a complete workout tracking interface in Figma, including exercise selection, duration input, and calorie calculation flow. Created user-friendly screens for saving progress and monitoring workout history.',
+                github: null,
+                live: null
+            },
+            venus: {
+                title: 'Venus PC Care Web Application',
+                problem: 'Need for a platform to view and manage movies and games with admin capabilities',
+                role: 'Full-Stack Developer',
+                tech: ['React JS', 'Node JS', 'Express JS', 'MongoDB'],
+                description: 'Web application allowing users to view latest uploaded movies and games, filter by category, and explore new arrivals. Includes comprehensive admin panel for content management.',
+                github: null,
+                live: null
+            },
+            helping: {
+                title: 'Helping Birds Web Application',
+                problem: 'Need for a platform connecting people in need with willing helpers and volunteers',
+                role: 'Full-Stack Developer',
+                tech: ['React JS', 'Node JS', 'Express JS', 'MongoDB'],
+                description: 'Social assistance platform that allows the public to seek or offer help. Features admin management for user submissions and verified support listings, creating a secure system for social assistance.',
+                github: null,
+                live: null
+            },
+            playwright: {
+                title: 'Playwright QA Exam Project',
+                problem: 'Need for comprehensive test automation and quality assurance demonstration',
+                role: 'QA Engineer',
+                tech: ['Playwright', 'JavaScript', 'Test Automation'],
+                description: 'QA examination project built with Playwright for test automation. Demonstrates expertise in end-to-end testing, test case design, and automation best practices.',
+                github: 'https://github.com/Janushan11/playwright-qa-exam--janushan-',
+                live: null
+            },
+            scout: {
+                title: 'Scout Project',
+                problem: 'TypeScript-based project development',
+                role: 'Full-Stack Developer',
+                tech: ['TypeScript', 'JavaScript'],
+                description: 'A project built with TypeScript, showcasing modern web development practices and type-safe coding.',
+                github: 'https://github.com/Janushan11/Scout',
+                live: null
+            }
+        };
+        
+        function openProjectModal(projectId) {
+            const project = projects[projectId];
+            if (!project) return;
+            
+            const modal = document.getElementById('projectModal');
+            const content = document.getElementById('modalContent');
+            
+            content.innerHTML = `
+                <h2 class="text-3xl font-bold mb-4 text-gray-900 dark:text-white">${project.title}</h2>
+                <div class="space-y-4">
+                    <div>
+                        <h3 class="font-semibold text-lg mb-2 text-gray-800 dark:text-gray-200">Problem Statement</h3>
+                        <p class="text-gray-600 dark:text-gray-400">${project.problem}</p>
+                    </div>
+                    <div>
+                        <h3 class="font-semibold text-lg mb-2 text-gray-800 dark:text-gray-200">My Role</h3>
+                        <p class="text-gray-600 dark:text-gray-400">${project.role}</p>
+                    </div>
+                    <div>
+                        <h3 class="font-semibold text-lg mb-2 text-gray-800 dark:text-gray-200">Tech Stack</h3>
+                        <div class="flex flex-wrap gap-2">
+                            ${project.tech.map(tech => `<span class="bg-primary/10 text-primary px-3 py-1 rounded-full text-sm">${tech}</span>`).join('')}
+                        </div>
+                    </div>
+                    <div>
+                        <h3 class="font-semibold text-lg mb-2 text-gray-800 dark:text-gray-200">Description</h3>
+                        <p class="text-gray-600 dark:text-gray-400">${project.description}</p>
+                    </div>
+                    ${project.github ? `<div class="pt-4">
+                        <a href="${project.github}" target="_blank" class="bg-primary text-white px-6 py-2 rounded-full inline-flex items-center space-x-2 hover:bg-opacity-90 transition-all">
+                            <span class="material-symbols-outlined text-sm">code</span>
+                            <span>View on GitHub</span>
+                        </a>
+                    </div>` : ''}
+                </div>
+            `;
+            
+            modal.style.display = 'block';
+        }
+        
+        function closeProjectModal() {
+            document.getElementById('projectModal').style.display = 'none';
+        }
+        
+        window.onclick = function(event) {
+            const modal = document.getElementById('projectModal');
+            if (event.target === modal) {
+                modal.style.display = 'none';
+            }
+        }
+        
+        // Form Submission
+        function handleFormSubmit(event) {
+            event.preventDefault();
+            const form = event.target;
+            const successMessage = document.getElementById('successMessage');
+            
+            // Simulate form submission
+            setTimeout(() => {
+                form.reset();
+                successMessage.style.display = 'block';
+                setTimeout(() => {
+                    successMessage.style.display = 'none';
+                }, 5000);
+            }, 500);
+        }
+        
+        // Download Resume
+        function downloadResume() {
+            // In a real implementation, this would download the actual resume PDF
+            alert('Resume download will be available soon. Please contact me at januzebra1972@gmail.com for my resume.');
+        }
+        
+        // Keyboard Navigation
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                closeProjectModal();
+            }
+        });
+    </script>
+
+</body></html>
