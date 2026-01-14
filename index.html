@@ -10,6 +10,7 @@
 <meta property="og:description" content="Building reliable, scalable, and user-friendly software. QA Intern at Bohar Solutions."/>
 <meta property="og:type" content="website"/>
 <meta property="og:url" content="https://janushan.dev"/>
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 <link href="https://fonts.googleapis.com" rel="preconnect"/>
 <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
@@ -237,14 +238,170 @@
             margin-top: 1rem;
             animation: slideDown 0.3s;
         }
+        .error-message {
+            display: none;
+            background-color: #ef4444;
+            color: white;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            margin-top: 1rem;
+            animation: slideDown 0.3s;
+        }
+        .mobile-nav {
+            position: fixed;
+            top: 0;
+            left: -100%;
+            width: 280px;
+            height: 100vh;
+            background: white;
+            box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+            transition: left 0.3s ease;
+            z-index: 1000;
+            padding: 2rem;
+            overflow-y: auto;
+        }
+        .dark .mobile-nav {
+            background: #1f2937;
+        }
+        .mobile-nav.active {
+            left: 0;
+        }
+        .mobile-nav-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 999;
+        }
+        .mobile-nav-overlay.active {
+            display: block;
+        }
+        .back-to-top {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 3rem;
+            height: 3rem;
+            background: #0066FF;
+            color: white;
+            border-radius: 50%;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 4px 14px 0 rgba(0, 102, 255, 0.39);
+            transition: all 0.3s ease;
+            z-index: 100;
+        }
+        .back-to-top:hover {
+            background: #0052CC;
+            transform: translateY(-4px);
+            box-shadow: 0 6px 20px 0 rgba(0, 102, 255, 0.5);
+        }
+        .back-to-top.visible {
+            display: flex;
+        }
+        .copy-tooltip {
+            position: relative;
+        }
+        .copy-tooltip::after {
+            content: 'Click to copy';
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #1E293B;
+            color: white;
+            padding: 0.5rem 0.75rem;
+            border-radius: 0.5rem;
+            font-size: 0.75rem;
+            white-space: nowrap;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s;
+            margin-bottom: 0.5rem;
+        }
+        .copy-tooltip:hover::after {
+            opacity: 1;
+        }
+        .copy-tooltip.copied::after {
+            content: 'Copied!';
+            background: #10b981;
+        }
+        .loading-spinner {
+            display: none;
+            width: 1.5rem;
+            height: 1.5rem;
+            border: 2px solid rgba(255,255,255,0.3);
+            border-top-color: white;
+            border-radius: 50%;
+            animation: spin 0.6s linear infinite;
+        }
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        .btn-primary.loading .loading-spinner {
+            display: inline-block;
+        }
+        .btn-primary.loading span:not(.loading-spinner) {
+            display: none;
+        }
     </style>
 </head>
 <body class="bg-ghost-white dark:bg-background-dark text-navy dark:text-gray-300">
+<!-- Mobile Navigation Toggle -->
+<button id="mobileNavToggle" class="fixed top-6 left-6 z-50 w-12 h-12 rounded-full bg-gray-100 dark:bg-gray-800 flex items-center justify-center text-gray-600 dark:text-gray-400 hover:bg-primary hover:text-white transition-all shadow-lg md:hidden" aria-label="Toggle mobile menu">
+<span class="material-symbols-outlined">menu</span>
+</button>
+
 <!-- Dark Mode Toggle -->
 <button id="darkModeToggle" class="fixed top-6 right-6 z-50 w-12 h-12 rounded-full bg-gray-100 dark:bg-gray-800 flex items-center justify-center text-gray-600 dark:text-gray-400 hover:bg-primary hover:text-white transition-all shadow-lg" aria-label="Toggle dark mode">
 <span class="material-symbols-outlined">dark_mode</span>
 </button>
 
+<!-- Mobile Navigation Overlay -->
+<div id="mobileNavOverlay" class="mobile-nav-overlay" onclick="toggleMobileNav()"></div>
+
+<!-- Mobile Navigation Menu -->
+<nav id="mobileNav" class="mobile-nav">
+<div class="flex justify-between items-center mb-8">
+<h2 class="text-xl font-bold text-navy dark:text-white">Menu</h2>
+<button onclick="toggleMobileNav()" class="w-10 h-10 flex items-center justify-center rounded-full bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 hover:bg-primary hover:text-white transition-all">
+<span class="material-symbols-outlined">close</span>
+</button>
+</div>
+<div class="flex flex-col space-y-4">
+<a class="flex items-center space-x-3 p-3 rounded-lg hover:bg-primary/10 transition-all text-navy dark:text-white" href="#hero" onclick="toggleMobileNav()">
+<span class="material-symbols-outlined text-primary">home</span>
+<span>Home</span>
+</a>
+<a class="flex items-center space-x-3 p-3 rounded-lg hover:bg-primary/10 transition-all text-navy dark:text-white" href="#about" onclick="toggleMobileNav()">
+<span class="material-symbols-outlined text-primary">person</span>
+<span>About</span>
+</a>
+<a class="flex items-center space-x-3 p-3 rounded-lg hover:bg-primary/10 transition-all text-navy dark:text-white" href="#resume" onclick="toggleMobileNav()">
+<span class="material-symbols-outlined text-primary">description</span>
+<span>Resume</span>
+</a>
+<a class="flex items-center space-x-3 p-3 rounded-lg hover:bg-primary/10 transition-all text-navy dark:text-white" href="#services" onclick="toggleMobileNav()">
+<span class="material-symbols-outlined text-primary">settings</span>
+<span>Services</span>
+</a>
+<a class="flex items-center space-x-3 p-3 rounded-lg hover:bg-primary/10 transition-all text-navy dark:text-white" href="#portfolio" onclick="toggleMobileNav()">
+<span class="material-symbols-outlined text-primary">grid_view</span>
+<span>Portfolio</span>
+</a>
+<a class="flex items-center space-x-3 p-3 rounded-lg hover:bg-primary/10 transition-all text-navy dark:text-white" href="#contact" onclick="toggleMobileNav()">
+<span class="material-symbols-outlined text-primary">mail</span>
+<span>Contact</span>
+</a>
+</div>
+</nav>
+
+<!-- Desktop Navigation -->
 <nav class="fixed left-6 top-1/2 -translate-y-1/2 z-50 hidden md:flex flex-col space-y-2">
 <a class="group relative flex items-center" href="#hero">
 <span class="nav-pill nav-active"><span class="material-symbols-outlined text-[20px]">home</span></span>
@@ -301,13 +458,19 @@
 </div>
 <div class="flex space-x-4 mb-8">
 <a class="w-10 h-10 flex items-center justify-center rounded-full bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 hover:bg-primary hover:text-white transition-all transform hover:scale-110" href="https://github.com/Janushan11" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
-<span class="material-symbols-outlined text-sm">code</span>
+<svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
 </a>
 <a class="w-10 h-10 flex items-center justify-center rounded-full bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 hover:bg-primary hover:text-white transition-all transform hover:scale-110" href="mailto:januzebra1972@gmail.com" aria-label="Email">
-<span class="material-symbols-outlined text-sm">alternate_email</span>
+<span class="material-symbols-outlined text-sm">mail</span>
 </a>
 <a class="w-10 h-10 flex items-center justify-center rounded-full bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 hover:bg-primary hover:text-white transition-all transform hover:scale-110" href="https://www.linkedin.com/in/kalaikumar-janushan-94943a334/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
-<span class="material-symbols-outlined text-sm">share</span>
+<svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+</a>
+<a class="w-10 h-10 flex items-center justify-center rounded-full bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 hover:bg-primary hover:text-white transition-all transform hover:scale-110" href="https://www.facebook.com/profile.php?id=100028930667657" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+<svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+</a>
+<a class="w-10 h-10 flex items-center justify-center rounded-full bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 hover:bg-primary hover:text-white transition-all transform hover:scale-110" href="https://www.instagram.com/kalaikumar_janushan?igsh=NnNsZ2x6bXZ3M2Zz&utm_source=qr" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+<svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
 </a>
 </div>
 <div class="flex items-center space-x-2 text-sm text-gray-500 dark:text-gray-400 scroll-indicator">
@@ -316,7 +479,7 @@
 </div>
 </div>
 <div class="hidden md:block fixed right-0 top-0 h-screen w-1/2 z-0">
-<img alt="Professional Portrait" class="h-full w-full object-cover object-center grayscale hover:grayscale-0 transition-all duration-700 fade-in" src="/profile.jpg"/>
+<img alt="Professional Portrait" class="h-full w-full object-cover object-center grayscale hover:grayscale-0 transition-all duration-700 fade-in" src="/profile.jpg" loading="lazy"/>
 <div class="absolute inset-0 bg-gradient-to-l from-transparent via-transparent to-white dark:to-background-dark pointer-events-none"></div>
 </div>
 </div>
@@ -329,7 +492,7 @@
 <div class="grid md:grid-cols-12 gap-12">
 <div class="md:col-span-4">
 <div class="bg-primary-light dark:bg-orange-900/20 rounded-2xl p-8 flex items-center justify-center card-hover border border-primary/10">
-<img alt="Profile Illustration" class="rounded-xl w-full" src="/profile2.jpg"/>
+<img alt="Profile Illustration" class="rounded-xl w-full" src="/profile2.jpg" loading="lazy"/>
 </div>
 </div>
 <div class="md:col-span-8">
@@ -384,7 +547,7 @@
 <div class="grid md:grid-cols-2 gap-y-4 gap-x-12">
 <div class="flex items-center space-x-2">
 <span class="material-symbols-outlined text-primary text-lg">chevron_right</span>
-<span class="font-bold">Phone:</span> <span><a href="tel:+94750424523" class="text-primary hover:underline">+94-75-042-4523</a></span>
+<span class="font-bold">Phone:</span> <span><a href="tel:+94750424523" class="text-primary hover:underline copy-tooltip cursor-pointer" onclick="copyToClipboard('+94-75-042-4523', this); return false;">+94-75-042-4523</a></span>
 </div>
 <div class="flex items-center space-x-2">
 <span class="material-symbols-outlined text-primary text-lg">chevron_right</span>
@@ -392,7 +555,7 @@
 </div>
 <div class="flex items-center space-x-2">
 <span class="material-symbols-outlined text-primary text-lg">chevron_right</span>
-<span class="font-bold">Email:</span> <span><a href="mailto:januzebra1972@gmail.com" class="text-primary hover:underline">januzebra1972@gmail.com</a></span>
+<span class="font-bold">Email:</span> <span><a href="mailto:januzebra1972@gmail.com" class="text-primary hover:underline copy-tooltip cursor-pointer" onclick="copyToClipboard('januzebra1972@gmail.com', this); return false;">januzebra1972@gmail.com</a></span>
 </div>
 <div class="flex items-center space-x-2">
 <span class="material-symbols-outlined text-primary text-lg">chevron_right</span>
@@ -579,7 +742,7 @@
 </div>
 <div class="grid md:grid-cols-3 gap-6" id="portfolio-grid">
 <div class="portfolio-item group relative overflow-hidden rounded-xl bg-gray-200 dark:bg-gray-800 aspect-[4/3] cursor-pointer card-hover" data-category="Full-Stack" onclick="openProjectModal('mercury')">
-<img src="/Mercury_FM.jpg" alt="Mercury FM Smart Booking and Management System" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"/>
+<img src="/Mercury_FM.jpg" alt="Mercury FM Smart Booking and Management System" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" loading="lazy"/>
 <div class="absolute inset-0 bg-primary/80 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col items-center justify-center space-y-2 p-4">
 <p class="text-white text-sm font-semibold text-center">Smart Booking & Management System</p>
 <p class="text-white text-xs text-center">React, Node.js, Express, MongoDB</p>
@@ -587,7 +750,7 @@
 </div>
 </div>
 <div class="portfolio-item group relative overflow-hidden rounded-xl bg-gray-200 dark:bg-gray-800 aspect-[4/3] cursor-pointer card-hover" data-category="UI/UX" onclick="openProjectModal('fitfuel')">
-<img src="/FitFuel.jpg" alt="FitFuel Mobile Application" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"/>
+<img src="/FitFuel.jpg" alt="FitFuel Mobile Application" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" loading="lazy"/>
 <div class="absolute inset-0 bg-primary/80 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col items-center justify-center space-y-2 p-4">
 <p class="text-white text-sm font-semibold text-center">Mobile Application</p>
 <p class="text-white text-xs text-center">Figma Design</p>
@@ -595,7 +758,7 @@
 </div>
 </div>
 <div class="portfolio-item group relative overflow-hidden rounded-xl bg-gray-200 dark:bg-gray-800 aspect-[4/3] cursor-pointer card-hover" data-category="Full-Stack" onclick="openProjectModal('venus')">
-<img src="/Venus_PC.jpg" alt="Venus PC Care Web Application" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"/>
+<img src="/Venus_PC.jpg" alt="Venus PC Care Web Application" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" loading="lazy"/>
 <div class="absolute inset-0 bg-primary/80 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col items-center justify-center space-y-2 p-4">
 <p class="text-white text-sm font-semibold text-center">PC Care Web Application</p>
 <p class="text-white text-xs text-center">React, Node.js, Express, MongoDB</p>
@@ -603,7 +766,7 @@
 </div>
 </div>
 <div class="portfolio-item group relative overflow-hidden rounded-xl bg-gray-200 dark:bg-gray-800 aspect-[4/3] cursor-pointer card-hover" data-category="Full-Stack" onclick="openProjectModal('helping')">
-<img src="/Helping_birds.jpg" alt="Helping Birds Web Application" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"/>
+<img src="/Helping_birds.jpg" alt="Helping Birds Web Application" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" loading="lazy"/>
 <div class="absolute inset-0 bg-primary/80 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col items-center justify-center space-y-2 p-4">
 <p class="text-white text-sm font-semibold text-center">Social Assistance Platform</p>
 <p class="text-white text-xs text-center">React, Node.js, Express, MongoDB</p>
@@ -611,7 +774,7 @@
 </div>
 </div>
 <div class="portfolio-item group relative overflow-hidden rounded-xl bg-gray-200 dark:bg-gray-800 aspect-[4/3] cursor-pointer card-hover" data-category="QA Projects" onclick="openProjectModal('playwright')">
-<img src="/Playwright_QA.png" alt="Playwright QA Exam Project" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"/>
+<img src="/Playwright_QA.png" alt="Playwright QA Exam Project" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" loading="lazy"/>
 <div class="absolute inset-0 bg-primary/80 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col items-center justify-center space-y-2 p-4">
 <p class="text-white text-sm font-semibold text-center">QA Exam Project</p>
 <p class="text-white text-xs text-center">Playwright, Test Automation</p>
@@ -619,7 +782,7 @@
 </div>
 </div>
 <div class="portfolio-item group relative overflow-hidden rounded-xl bg-gray-200 dark:bg-gray-800 aspect-[4/3] cursor-pointer card-hover" data-category="Full-Stack" onclick="openProjectModal('scout')">
-<img src="/Scout.jpg" alt="Scout TypeScript Project" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"/>
+<img src="/Scout.jpg" alt="Scout TypeScript Project" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" loading="lazy"/>
 <div class="absolute inset-0 bg-primary/80 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col items-center justify-center space-y-2 p-4">
 <p class="text-white text-sm font-semibold text-center">TypeScript Project</p>
 <p class="text-white text-xs text-center">TypeScript, JavaScript</p>
@@ -661,7 +824,7 @@
 </div>
 <div>
 <h4 class="text-xl font-bold mb-1">Email:</h4>
-<p class="text-sm text-gray-600 dark:text-gray-400"><a href="mailto:januzebra1972@gmail.com" class="text-primary hover:underline">januzebra1972@gmail.com</a></p>
+<p class="text-sm text-gray-600 dark:text-gray-400"><a href="mailto:januzebra1972@gmail.com" class="text-primary hover:underline copy-tooltip cursor-pointer" onclick="copyToClipboard('januzebra1972@gmail.com', this); return false;">januzebra1972@gmail.com</a></p>
 </div>
 </div>
 <div class="flex items-start space-x-4">
@@ -670,7 +833,7 @@
 </div>
 <div>
 <h4 class="text-xl font-bold mb-1">Call:</h4>
-<p class="text-sm text-gray-600 dark:text-gray-400"><a href="tel:+94750424523" class="text-primary hover:underline">+94-75-042-4523</a></p>
+<p class="text-sm text-gray-600 dark:text-gray-400"><a href="tel:+94750424523" class="text-primary hover:underline copy-tooltip cursor-pointer" onclick="copyToClipboard('+94-75-042-4523', this); return false;">+94-75-042-4523</a></p>
 </div>
 </div>
 <div class="flex space-x-4 pt-4">
@@ -678,7 +841,13 @@
 <span class="material-symbols-outlined text-sm">chat</span>
 </a>
 <a href="https://www.linkedin.com/in/kalaikumar-janushan-94943a334/" target="_blank" class="w-12 h-12 bg-blue-600 hover:bg-blue-700 text-white rounded-full flex items-center justify-center transition-all transform hover:scale-110" aria-label="LinkedIn">
-<span class="material-symbols-outlined text-sm">share</span>
+<svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+</a>
+<a href="https://www.facebook.com/profile.php?id=100028930667657" target="_blank" class="w-12 h-12 bg-blue-500 hover:bg-blue-600 text-white rounded-full flex items-center justify-center transition-all transform hover:scale-110" aria-label="Facebook">
+<svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+</a>
+<a href="https://www.instagram.com/kalaikumar_janushan?igsh=NnNsZ2x6bXZ3M2Zz&utm_source=qr" target="_blank" class="w-12 h-12 bg-gradient-to-br from-purple-500 via-pink-500 to-orange-500 hover:from-purple-600 hover:via-pink-600 hover:to-orange-600 text-white rounded-full flex items-center justify-center transition-all transform hover:scale-110" aria-label="Instagram">
+<svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
 </a>
 </div>
 <div class="rounded-xl overflow-hidden h-64 shadow-sm border border-gray-100 dark:border-gray-800">
@@ -690,15 +859,15 @@
 <form id="contactForm" action="#" class="grid grid-cols-2 gap-6" method="POST" onsubmit="handleFormSubmit(event)">
 <div class="col-span-2 md:col-span-1">
 <label class="block text-sm font-medium mb-2">Your Name</label>
-<input class="w-full px-4 py-3 rounded-lg border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 focus:ring-primary focus:border-primary" placeholder="John Doe" type="text" required/>
+<input name="from_name" class="w-full px-4 py-3 rounded-lg border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 focus:ring-primary focus:border-primary" placeholder="John Doe" type="text" required/>
 </div>
 <div class="col-span-2 md:col-span-1">
 <label class="block text-sm font-medium mb-2">Your Email</label>
-<input class="w-full px-4 py-3 rounded-lg border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 focus:ring-primary focus:border-primary" placeholder="john@example.com" type="email" required/>
+<input name="from_email" class="w-full px-4 py-3 rounded-lg border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 focus:ring-primary focus:border-primary" placeholder="john@example.com" type="email" required/>
 </div>
 <div class="col-span-2">
 <label class="block text-sm font-medium mb-2">Subject</label>
-<select class="w-full px-4 py-3 rounded-lg border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 focus:ring-primary focus:border-primary" required>
+<select name="subject" class="w-full px-4 py-3 rounded-lg border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 focus:ring-primary focus:border-primary" required>
 <option value="">Select a subject</option>
 <option value="Job Opportunity">Job Opportunity</option>
 <option value="Freelance Work">Freelance Work</option>
@@ -709,16 +878,21 @@
 </div>
 <div class="col-span-2">
 <label class="block text-sm font-medium mb-2">Message</label>
-<textarea class="w-full px-4 py-3 rounded-lg border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 focus:ring-primary focus:border-primary" placeholder="Hello, I'd like to talk about..." rows="6" required></textarea>
+<textarea name="message" class="w-full px-4 py-3 rounded-lg border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 focus:ring-primary focus:border-primary" placeholder="Hello, I'd like to talk about..." rows="6" required></textarea>
 </div>
 <div class="col-span-2 flex justify-center">
-<button class="btn-primary py-3 px-10" type="submit">
-                                    Send Message
-                                </button>
+<button id="submitBtn" class="btn-primary py-3 px-10" type="submit">
+<span class="loading-spinner"></span>
+<span>Send Message</span>
+</button>
 </div>
 <div id="successMessage" class="success-message col-span-2">
 <span class="material-symbols-outlined align-middle mr-2">check_circle</span>
 Message sent successfully! I'll get back to you soon.
+</div>
+<div id="errorMessage" class="error-message col-span-2">
+<span class="material-symbols-outlined align-middle mr-2">error</span>
+<span id="errorText">Failed to send message. Please try again or contact me directly.</span>
 </div>
 </form>
 </div>
@@ -726,6 +900,11 @@ Message sent successfully! I'll get back to you soon.
 </div>
 </div>
 </section>
+
+<!-- Back to Top Button -->
+<button id="backToTop" class="back-to-top" onclick="scrollToTop()" aria-label="Back to top">
+<span class="material-symbols-outlined">arrow_upward</span>
+</button>
 
 <footer class="py-12 border-t border-primary/10 dark:border-gray-800 text-center relative z-10 bg-ghost-white dark:bg-background-dark">
 <div class="container mx-auto px-6">
@@ -953,20 +1132,151 @@ Message sent successfully! I'll get back to you soon.
             }
         }
         
-        // Form Submission
+        // Mobile Navigation Toggle
+        function toggleMobileNav() {
+            const mobileNav = document.getElementById('mobileNav');
+            const overlay = document.getElementById('mobileNavOverlay');
+            mobileNav.classList.toggle('active');
+            overlay.classList.toggle('active');
+        }
+        
+        document.getElementById('mobileNavToggle')?.addEventListener('click', toggleMobileNav);
+        
+        // Close mobile nav when clicking outside
+        document.getElementById('mobileNavOverlay')?.addEventListener('click', toggleMobileNav);
+        
+        // Copy to Clipboard
+        function copyToClipboard(text, element) {
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(text).then(() => {
+                    element.classList.add('copied');
+                    setTimeout(() => {
+                        element.classList.remove('copied');
+                    }, 2000);
+                }).catch(() => {
+                    // Fallback for older browsers
+                    fallbackCopyToClipboard(text, element);
+                });
+            } else {
+                fallbackCopyToClipboard(text, element);
+            }
+        }
+        
+        function fallbackCopyToClipboard(text, element) {
+            const textArea = document.createElement('textarea');
+            textArea.value = text;
+            textArea.style.position = 'fixed';
+            textArea.style.opacity = '0';
+            document.body.appendChild(textArea);
+            textArea.select();
+            try {
+                document.execCommand('copy');
+                element.classList.add('copied');
+                setTimeout(() => {
+                    element.classList.remove('copied');
+                }, 2000);
+            } catch (err) {
+                console.error('Failed to copy:', err);
+            }
+            document.body.removeChild(textArea);
+        }
+        
+        // Back to Top Button
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+        
+        const backToTopBtn = document.getElementById('backToTop');
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 300) {
+                backToTopBtn.classList.add('visible');
+            } else {
+                backToTopBtn.classList.remove('visible');
+            }
+        });
+        
+        // EmailJS Configuration
+        // To set up EmailJS:
+        // 1. Sign up at https://www.emailjs.com/
+        // 2. Create an email service (Gmail, Outlook, etc.)
+        // 3. Create an email template
+        // 4. Get your Public Key, Service ID, and Template ID
+        // 5. Replace the values below
+        
+        const EMAILJS_CONFIG = {
+            publicKey: 'YOUR_PUBLIC_KEY', // Get this from EmailJS Account → General → Public Key
+            serviceId: 'service_nwbiuow', // Your Gmail service ID
+            templateId: 'YOUR_TEMPLATE_ID' // Create a template in EmailJS and paste the ID here
+        };
+        
+        // Initialize EmailJS if configured
+        if (EMAILJS_CONFIG.publicKey !== 'YOUR_PUBLIC_KEY' && typeof emailjs !== 'undefined') {
+            emailjs.init(EMAILJS_CONFIG.publicKey);
+        }
+        
+        // Form Submission Handler
         function handleFormSubmit(event) {
             event.preventDefault();
             const form = event.target;
+            const submitBtn = document.getElementById('submitBtn');
             const successMessage = document.getElementById('successMessage');
+            const errorMessage = document.getElementById('errorMessage');
             
-            // Simulate form submission
-            setTimeout(() => {
-                form.reset();
-                successMessage.style.display = 'block';
+            // Hide previous messages
+            successMessage.style.display = 'none';
+            errorMessage.style.display = 'none';
+            
+            // Show loading state
+            submitBtn.classList.add('loading');
+            submitBtn.disabled = true;
+            
+            // Get form data
+            const formData = new FormData(form);
+            const name = formData.get('from_name') || '';
+            const email = formData.get('from_email') || '';
+            const subject = formData.get('subject') || 'Portfolio Contact';
+            const message = formData.get('message') || '';
+            
+            // Check if EmailJS is configured
+            if (EMAILJS_CONFIG.publicKey !== 'YOUR_PUBLIC_KEY' && typeof emailjs !== 'undefined') {
+                // Use EmailJS
+                emailjs.sendForm(EMAILJS_CONFIG.serviceId, EMAILJS_CONFIG.templateId, form)
+                    .then(() => {
+                        form.reset();
+                        submitBtn.classList.remove('loading');
+                        submitBtn.disabled = false;
+                        successMessage.style.display = 'block';
+                        setTimeout(() => {
+                            successMessage.style.display = 'none';
+                        }, 5000);
+                    })
+                    .catch((error) => {
+                        console.error('EmailJS Error:', error);
+                        submitBtn.classList.remove('loading');
+                        submitBtn.disabled = false;
+                        errorMessage.style.display = 'block';
+                        setTimeout(() => {
+                            errorMessage.style.display = 'none';
+                        }, 5000);
+                    });
+            } else {
+                // Fallback: Use mailto link
                 setTimeout(() => {
-                    successMessage.style.display = 'none';
-                }, 5000);
-            }, 500);
+                    const mailtoLink = `mailto:januzebra1972@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(`From: ${name} (${email})\n\n${message}`)}`;
+                    window.location.href = mailtoLink;
+                    
+                    form.reset();
+                    submitBtn.classList.remove('loading');
+                    submitBtn.disabled = false;
+                    successMessage.style.display = 'block';
+                    setTimeout(() => {
+                        successMessage.style.display = 'none';
+                    }, 5000);
+                }, 500);
+            }
         }
         
         
