@@ -1,13 +1,8 @@
 {
   "version": 2,
-  "buildCommand": "",
+  "buildCommand": "bash build.sh",
   "outputDirectory": ".",
   "framework": null,
-  "rewrites": [
-    {
-      "source": "/(.*)",
-      "destination": "/index.html"
-    }
-  ]
+  "installCommand": ""
 }
 
