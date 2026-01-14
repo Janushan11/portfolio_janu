@@ -21,22 +21,37 @@
         theme: {
           extend: {
             colors: {
-              primary: "#149ddd",
-              "background-light": "#ffffff",
+              primary: "#0066FF",
+              "primary-dark": "#0052CC",
+              "primary-light": "#F0F7FF",
+              "navy": "#1E293B",
+              "slate": "#64748B",
+              "ghost-white": "#F8FAFC",
+              "ice-blue": "#F0F7FF",
+              "background-light": "#F8FAFC",
               "background-dark": "#040b14",
             },
             fontFamily: {
               display: ["Plus Jakarta Sans", "sans-serif"],
             },
             borderRadius: {
-              DEFAULT: "0.5rem",
+              DEFAULT: "0.75rem",
+              "lg": "1rem",
+              "xl": "1.5rem",
+            },
+            boxShadow: {
+              "soft-blue": "0 4px 14px 0 rgba(0, 102, 255, 0.39)",
+              "soft": "0 2px 8px 0 rgba(0, 0, 0, 0.08)",
             },
           },
         },
       };
     </script>
 <style>
-        body { font-family: 'Plus Jakarta Sans', sans-serif; }
+        body { 
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #F8FAFC;
+        }
         .nav-pill {
             display: flex;
             align-items: center;
@@ -44,28 +59,30 @@
             width: 2.5rem;
             height: 2.5rem;
             border-radius: 9999px;
-            background-color: rgb(243 244 246);
-            color: rgb(107 114 128);
-            transition: all 0.3s;
+            background-color: #F0F7FF;
+            color: #64748B;
+            transition: all 0.3s ease;
             margin-bottom: 1rem;
         }
         .dark .nav-pill {
             background-color: rgb(31 41 55);
         }
         .nav-pill:hover {
-            background-color: #149ddd;
+            background-color: #0066FF;
             color: white;
             transform: scale(1.1);
+            box-shadow: 0 4px 14px 0 rgba(0, 102, 255, 0.39);
         }
         .nav-active {
-            background-color: #149ddd;
+            background-color: #0066FF;
             color: white;
+            box-shadow: 0 4px 14px 0 rgba(0, 102, 255, 0.39);
         }
         .section-title {
             font-size: 1.875rem;
             line-height: 2.25rem;
             font-weight: 700;
-            color: rgb(31 41 55);
+            color: #1E293B;
             position: relative;
             padding-bottom: 1rem;
             margin-bottom: 2rem;
@@ -80,11 +97,12 @@
             left: 0;
             width: 3rem;
             height: 0.25rem;
-            background-color: #149ddd;
+            background-color: #0066FF;
+            border-radius: 2px;
         }
         .resume-item {
             padding-left: 1.5rem;
-            border-left: 2px solid rgba(20, 157, 221, 0.3);
+            border-left: 2px solid rgba(0, 102, 255, 0.2);
             position: relative;
             padding-bottom: 1.5rem;
         }
@@ -96,18 +114,18 @@
             width: 1rem;
             height: 1rem;
             border-radius: 9999px;
-            border: 2px solid #149ddd;
+            border: 2px solid #0066FF;
             background-color: white;
         }
         .dark .resume-item::before {
             background-color: #040b14;
         }
         .typing-text {
-            border-right: 2px solid #149ddd;
+            border-right: 2px solid #0066FF;
             animation: blink 1s infinite;
         }
         @keyframes blink {
-            0%, 50% { border-color: #149ddd; }
+            0%, 50% { border-color: #0066FF; }
             51%, 100% { border-color: transparent; }
         }
         .fade-in {
@@ -130,7 +148,55 @@
         }
         .card-hover:hover {
             transform: translateY(-8px);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            box-shadow: 0 8px 24px rgba(0, 102, 255, 0.15);
+        }
+        .portfolio-item {
+            transition: all 0.3s ease;
+        }
+        .btn-primary {
+            background-color: #0066FF;
+            color: white;
+            border-radius: 12px;
+            padding: 0.75rem 1.5rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 14px 0 rgba(0, 102, 255, 0.39);
+        }
+        .btn-primary:hover {
+            background-color: #0052CC;
+            box-shadow: 0 6px 20px 0 rgba(0, 102, 255, 0.5);
+            transform: translateY(-2px);
+        }
+        .btn-secondary {
+            background-color: #F0F7FF;
+            color: #0066FF;
+            border: 1px solid rgba(0, 102, 255, 0.2);
+            border-radius: 12px;
+            padding: 0.75rem 1.5rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        .btn-secondary:hover {
+            background-color: #E0EFFF;
+            border-color: rgba(0, 102, 255, 0.3);
+            transform: translateY(-2px);
+        }
+        .card-modern {
+            background-color: white;
+            border-radius: 1rem;
+            border: 1px solid rgba(0, 102, 255, 0.1);
+            box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+        }
+        .card-modern:hover {
+            box-shadow: 0 8px 24px rgba(0, 102, 255, 0.15);
+            border-color: rgba(0, 102, 255, 0.2);
+        }
+        .text-navy {
+            color: #1E293B;
+        }
+        .text-slate {
+            color: #64748B;
         }
         .modal {
             display: none;
@@ -173,7 +239,7 @@
         }
     </style>
 </head>
-<body class="bg-background-light dark:bg-background-dark text-gray-700 dark:text-gray-300">
+<body class="bg-ghost-white dark:bg-background-dark text-navy dark:text-gray-300">
 <!-- Dark Mode Toggle -->
 <button id="darkModeToggle" class="fixed top-6 right-6 z-50 w-12 h-12 rounded-full bg-gray-100 dark:bg-gray-800 flex items-center justify-center text-gray-600 dark:text-gray-400 hover:bg-primary hover:text-white transition-all shadow-lg" aria-label="Toggle dark mode">
 <span class="material-symbols-outlined">dark_mode</span>
@@ -210,25 +276,25 @@
 <section class="min-h-screen relative flex items-center overflow-hidden" id="hero">
 <div class="container mx-auto px-6 md:px-24 grid md:grid-cols-2 gap-12 items-center relative z-10">
 <div class="fade-in relative z-10">
-<h1 class="text-5xl md:text-7xl font-extrabold text-gray-900 dark:text-white mb-4">
+<h1 class="text-5xl md:text-7xl font-extrabold text-navy dark:text-white mb-4">
                     Kalaikumar Janushan
                 </h1>
-<p class="text-2xl md:text-3xl text-gray-600 dark:text-gray-400 mb-4">
+<p class="text-2xl md:text-3xl text-slate dark:text-gray-400 mb-4">
                     <span id="typing-text">Quality Assurance Engineer & Full-Stack Developer</span>
                 </p>
-<p class="text-lg text-gray-500 dark:text-gray-400 mb-8">
+<p class="text-lg text-slate dark:text-gray-400 mb-8">
                     Building reliable, scalable, and user-friendly software
                 </p>
 <div class="flex flex-wrap gap-4 mb-8">
-<a href="#contact" class="bg-primary hover:bg-opacity-90 text-white font-semibold py-3 px-6 rounded-full transition-all shadow-md hover:shadow-lg transform hover:scale-105 flex items-center space-x-2">
+<a href="/Janushan_Kalaikumar_Resume.pdf" download="Janushan_Kalaikumar_Resume.pdf" class="btn-primary flex items-center space-x-2">
 <span class="material-symbols-outlined text-sm">download</span>
 <span>Download Resume</span>
 </a>
-<a href="#portfolio" class="bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 text-gray-900 dark:text-white font-semibold py-3 px-6 rounded-full transition-all shadow-md hover:shadow-lg transform hover:scale-105 flex items-center space-x-2">
+<a href="#portfolio" class="btn-secondary flex items-center space-x-2">
 <span class="material-symbols-outlined text-sm">grid_view</span>
 <span>View Projects</span>
 </a>
-<a href="#contact" class="border-2 border-primary text-primary hover:bg-primary hover:text-white font-semibold py-3 px-6 rounded-full transition-all transform hover:scale-105 flex items-center space-x-2">
+<a href="#contact" class="btn-secondary flex items-center space-x-2">
 <span class="material-symbols-outlined text-sm">mail</span>
 <span>Contact Me</span>
 </a>
@@ -257,12 +323,12 @@
 </section>
 
 <!-- About Section -->
-<section class="py-24 bg-gray-50 dark:bg-gray-900/50 relative z-10" id="about">
+<section class="py-24 bg-white dark:bg-gray-900/50 relative z-10" id="about">
 <div class="container mx-auto px-6 md:px-24">
 <h2 class="section-title">About</h2>
 <div class="grid md:grid-cols-12 gap-12">
 <div class="md:col-span-4">
-<div class="bg-orange-100 dark:bg-orange-900/20 rounded-2xl p-8 flex items-center justify-center card-hover">
+<div class="bg-primary-light dark:bg-orange-900/20 rounded-2xl p-8 flex items-center justify-center card-hover border border-primary/10">
 <img alt="Profile Illustration" class="rounded-xl w-full" src="/profile2.jpg"/>
 </div>
 </div>
@@ -298,9 +364,9 @@
 </div>
 </div>
 </div>
-<div class="bg-primary/10 dark:bg-primary/20 rounded-xl p-6 mb-8">
-<h4 class="font-bold text-lg mb-3 text-gray-800 dark:text-white">Currently focusing on:</h4>
-<ul class="space-y-2 text-sm">
+<div class="bg-primary-light dark:bg-primary/20 rounded-xl p-6 mb-8 border border-primary/20 card-modern">
+<h4 class="font-bold text-lg mb-3 text-navy dark:text-white">Currently focusing on:</h4>
+<ul class="space-y-2 text-sm text-slate dark:text-gray-300">
 <li class="flex items-center space-x-2">
 <span class="material-symbols-outlined text-primary text-lg">arrow_forward</span>
 <span>Automation testing (Playwright)</span>
@@ -347,19 +413,19 @@
 </section>
 
 <!-- Resume Section -->
-<section class="py-24 relative z-10 bg-white dark:bg-background-dark" id="resume">
+<section class="py-24 relative z-10 bg-ghost-white dark:bg-background-dark" id="resume">
 <div class="container mx-auto px-6 md:px-24">
 <div class="flex justify-between items-center mb-8">
 <h2 class="section-title mb-0">Resume</h2>
-<button onclick="downloadResume()" class="bg-primary hover:bg-opacity-90 text-white font-semibold py-2 px-6 rounded-full transition-all shadow-md hover:shadow-lg transform hover:scale-105 flex items-center space-x-2">
+<a href="/Janushan_Kalaikumar_Resume.pdf" download="Janushan_Kalaikumar_Resume.pdf" class="btn-primary flex items-center space-x-2">
 <span class="material-symbols-outlined text-sm">download</span>
 <span>Download Resume</span>
-</button>
+</a>
 </div>
 <p class="mb-12">Check out my resume and work experience.</p>
 <div class="grid md:grid-cols-2 gap-12">
 <div>
-<h3 class="text-2xl font-bold mb-6 text-gray-800 dark:text-white flex items-center space-x-2">
+<h3 class="text-2xl font-bold mb-6 text-navy dark:text-white flex items-center space-x-2">
 <span class="material-symbols-outlined text-primary">school</span>
 <span>Summary &amp; Education</span>
 </h3>
@@ -381,7 +447,7 @@
 </div>
 </div>
 <div>
-<h3 class="text-2xl font-bold mb-6 text-gray-800 dark:text-white flex items-center space-x-2">
+<h3 class="text-2xl font-bold mb-6 text-navy dark:text-white flex items-center space-x-2">
 <span class="material-symbols-outlined text-primary">work</span>
 <span>Professional Experience</span>
 </h3>
@@ -413,83 +479,83 @@
 </section>
 
 <!-- Services Section -->
-<section class="py-24 bg-gray-50 dark:bg-gray-900/50 relative z-10" id="services">
+<section class="py-24 bg-white dark:bg-gray-900/50 relative z-10" id="services">
 <div class="container mx-auto px-6 md:px-24">
 <h2 class="section-title">Services</h2>
 <p class="mb-12">What I can do for you.</p>
 <div class="grid md:grid-cols-3 gap-8">
-<div class="bg-background-light dark:bg-background-dark p-8 rounded-xl shadow-sm hover:shadow-lg transition-all border border-gray-100 dark:border-gray-800 group card-hover">
+<div class="card-modern dark:bg-background-dark p-8 group">
 <div class="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-6 group-hover:bg-primary transition-colors">
 <span class="material-symbols-outlined text-primary group-hover:text-white">language</span>
 </div>
 <h3 class="text-xl font-bold mb-2">Quality Assurance</h3>
 <p class="text-xs text-primary mb-3 font-semibold">Problem: Bugs reaching production</p>
-<p class="text-sm text-gray-600 dark:text-gray-400 mb-4">Solution: Structured testing, automation & API validation</p>
+<p class="text-sm text-slate dark:text-gray-400 mb-4">Solution: Structured testing, automation & API validation</p>
 <div class="flex flex-wrap gap-2">
-<span class="text-xs bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded">Startups</span>
+<span class="text-xs bg-primary-light dark:bg-gray-800 text-primary px-2 py-1 rounded">Startups</span>
 <span class="text-xs bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded">ERP Systems</span>
 <span class="text-xs bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded">SaaS Apps</span>
 </div>
 </div>
-<div class="bg-background-light dark:bg-background-dark p-8 rounded-xl shadow-sm hover:shadow-lg transition-all border border-gray-100 dark:border-gray-800 group card-hover">
+<div class="card-modern dark:bg-background-dark p-8 group">
 <div class="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-6 group-hover:bg-primary transition-colors">
 <span class="material-symbols-outlined text-primary group-hover:text-white">code</span>
 </div>
 <h3 class="text-xl font-bold mb-2">Full-Stack Development</h3>
 <p class="text-xs text-primary mb-3 font-semibold">Problem: Need scalable web solutions</p>
-<p class="text-sm text-gray-600 dark:text-gray-400 mb-4">Solution: Modern React, Node.js, MongoDB stack with clean architecture</p>
+<p class="text-sm text-slate dark:text-gray-400 mb-4">Solution: Modern React, Node.js, MongoDB stack with clean architecture</p>
 <div class="flex flex-wrap gap-2">
 <span class="text-xs bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded">Web Apps</span>
 <span class="text-xs bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded">APIs</span>
 <span class="text-xs bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded">E-commerce</span>
 </div>
 </div>
-<div class="bg-background-light dark:bg-background-dark p-8 rounded-xl shadow-sm hover:shadow-lg transition-all border border-gray-100 dark:border-gray-800 group card-hover">
+<div class="card-modern dark:bg-background-dark p-8 group">
 <div class="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-6 group-hover:bg-primary transition-colors">
 <span class="material-symbols-outlined text-primary group-hover:text-white">api</span>
 </div>
 <h3 class="text-xl font-bold mb-2">API Testing</h3>
 <p class="text-xs text-primary mb-3 font-semibold">Problem: API reliability issues</p>
-<p class="text-sm text-gray-600 dark:text-gray-400 mb-4">Solution: RESTful API testing, database validation, and frontend integration</p>
+<p class="text-sm text-slate dark:text-gray-400 mb-4">Solution: RESTful API testing, database validation, and frontend integration</p>
 <div class="flex flex-wrap gap-2">
 <span class="text-xs bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded">REST APIs</span>
 <span class="text-xs bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded">Database</span>
 <span class="text-xs bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded">Integration</span>
 </div>
 </div>
-<div class="bg-background-light dark:bg-background-dark p-8 rounded-xl shadow-sm hover:shadow-lg transition-all border border-gray-100 dark:border-gray-800 group card-hover">
+<div class="card-modern dark:bg-background-dark p-8 group">
 <div class="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-6 group-hover:bg-primary transition-colors">
 <span class="material-symbols-outlined text-primary group-hover:text-white">smartphone</span>
 </div>
 <h3 class="text-xl font-bold mb-2">UI/UX Design</h3>
 <p class="text-xs text-primary mb-3 font-semibold">Problem: Poor user experience</p>
-<p class="text-sm text-gray-600 dark:text-gray-400 mb-4">Solution: Intuitive interfaces, clear visuals, and seamless user flows</p>
+<p class="text-sm text-slate dark:text-gray-400 mb-4">Solution: Intuitive interfaces, clear visuals, and seamless user flows</p>
 <div class="flex flex-wrap gap-2">
 <span class="text-xs bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded">Web Design</span>
 <span class="text-xs bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded">Mobile Apps</span>
 <span class="text-xs bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded">Figma</span>
 </div>
 </div>
-<div class="bg-background-light dark:bg-background-dark p-8 rounded-xl shadow-sm hover:shadow-lg transition-all border border-gray-100 dark:border-gray-800 group card-hover">
+<div class="card-modern dark:bg-background-dark p-8 group">
 <div class="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-6 group-hover:bg-primary transition-colors">
 <span class="material-symbols-outlined text-primary group-hover:text-white">settings</span>
 </div>
 <h3 class="text-xl font-bold mb-2">CI/CD & DevOps</h3>
 <p class="text-xs text-primary mb-3 font-semibold">Problem: Manual deployment risks</p>
-<p class="text-sm text-gray-600 dark:text-gray-400 mb-4">Solution: Git-based CI/CD workflows, automated testing, and deployment validation</p>
+<p class="text-sm text-slate dark:text-gray-400 mb-4">Solution: Git-based CI/CD workflows, automated testing, and deployment validation</p>
 <div class="flex flex-wrap gap-2">
 <span class="text-xs bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded">CI/CD</span>
 <span class="text-xs bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded">Git</span>
 <span class="text-xs bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded">Automation</span>
 </div>
 </div>
-<div class="bg-background-light dark:bg-background-dark p-8 rounded-xl shadow-sm hover:shadow-lg transition-all border border-gray-100 dark:border-gray-800 group card-hover">
+<div class="card-modern dark:bg-background-dark p-8 group">
 <div class="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-6 group-hover:bg-primary transition-colors">
 <span class="material-symbols-outlined text-primary group-hover:text-white">analytics</span>
 </div>
 <h3 class="text-xl font-bold mb-2">System Analysis</h3>
 <p class="text-xs text-primary mb-3 font-semibold">Problem: Unclear requirements</p>
-<p class="text-sm text-gray-600 dark:text-gray-400 mb-4">Solution: Business analysis, requirement translation, and stakeholder collaboration</p>
+<p class="text-sm text-slate dark:text-gray-400 mb-4">Solution: Business analysis, requirement translation, and stakeholder collaboration</p>
 <div class="flex flex-wrap gap-2">
 <span class="text-xs bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded">Analysis</span>
 <span class="text-xs bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded">Requirements</span>
@@ -501,71 +567,59 @@
 </section>
 
 <!-- Portfolio Section -->
-<section class="py-24 relative z-10 bg-white dark:bg-background-dark" id="portfolio">
+<section class="py-24 relative z-10 bg-ghost-white dark:bg-background-dark" id="portfolio">
 <div class="container mx-auto px-6 md:px-24">
 <h2 class="section-title">Portfolio</h2>
 <p class="mb-12">My works from the last 5 years.</p>
 <div class="flex justify-center flex-wrap gap-4 mb-12">
-<button class="px-6 py-2 rounded-full bg-primary text-white text-sm font-semibold" onclick="filterProjects('All')">All</button>
-<button class="px-6 py-2 rounded-full bg-gray-100 dark:bg-gray-800 text-sm font-semibold hover:bg-primary hover:text-white transition-all" onclick="filterProjects('QA')">QA Projects</button>
-<button class="px-6 py-2 rounded-full bg-gray-100 dark:bg-gray-800 text-sm font-semibold hover:bg-primary hover:text-white transition-all" onclick="filterProjects('Full-Stack')">Full-Stack</button>
-<button class="px-6 py-2 rounded-full bg-gray-100 dark:bg-gray-800 text-sm font-semibold hover:bg-primary hover:text-white transition-all" onclick="filterProjects('UI/UX')">UI/UX</button>
+<button class="px-6 py-2 rounded-xl bg-primary text-white text-sm font-semibold shadow-soft-blue transition-all" onclick="filterProjects('All')">All</button>
+<button class="px-6 py-2 rounded-xl bg-primary-light text-primary border border-primary/20 text-sm font-semibold hover:bg-primary hover:text-white hover:border-primary transition-all" onclick="filterProjects('QA Projects')">QA Projects</button>
+<button class="px-6 py-2 rounded-xl bg-primary-light text-primary border border-primary/20 text-sm font-semibold hover:bg-primary hover:text-white hover:border-primary transition-all" onclick="filterProjects('Full-Stack')">Full-Stack</button>
+<button class="px-6 py-2 rounded-xl bg-primary-light text-primary border border-primary/20 text-sm font-semibold hover:bg-primary hover:text-white hover:border-primary transition-all" onclick="filterProjects('UI/UX')">UI/UX</button>
 </div>
 <div class="grid md:grid-cols-3 gap-6" id="portfolio-grid">
-<div class="group relative overflow-hidden rounded-xl bg-gray-200 dark:bg-gray-800 aspect-[4/3] cursor-pointer card-hover" onclick="openProjectModal('mercury')">
-<div class="absolute inset-0 bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center">
-<span class="text-white text-4xl font-bold">Mercury FM</span>
-</div>
+<div class="portfolio-item group relative overflow-hidden rounded-xl bg-gray-200 dark:bg-gray-800 aspect-[4/3] cursor-pointer card-hover" data-category="Full-Stack" onclick="openProjectModal('mercury')">
+<img src="/Mercury_FM.jpg" alt="Mercury FM Smart Booking and Management System" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"/>
 <div class="absolute inset-0 bg-primary/80 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col items-center justify-center space-y-2 p-4">
 <p class="text-white text-sm font-semibold text-center">Smart Booking & Management System</p>
 <p class="text-white text-xs text-center">React, Node.js, Express, MongoDB</p>
 <span class="material-symbols-outlined text-white text-3xl">visibility</span>
 </div>
 </div>
-<div class="group relative overflow-hidden rounded-xl bg-gray-200 dark:bg-gray-800 aspect-[4/3] cursor-pointer card-hover" onclick="openProjectModal('fitfuel')">
-<div class="absolute inset-0 bg-gradient-to-br from-green-500 to-teal-600 flex items-center justify-center">
-<span class="text-white text-4xl font-bold">FitFuel</span>
-</div>
+<div class="portfolio-item group relative overflow-hidden rounded-xl bg-gray-200 dark:bg-gray-800 aspect-[4/3] cursor-pointer card-hover" data-category="UI/UX" onclick="openProjectModal('fitfuel')">
+<img src="/FitFuel.jpg" alt="FitFuel Mobile Application" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"/>
 <div class="absolute inset-0 bg-primary/80 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col items-center justify-center space-y-2 p-4">
 <p class="text-white text-sm font-semibold text-center">Mobile Application</p>
 <p class="text-white text-xs text-center">Figma Design</p>
 <span class="material-symbols-outlined text-white text-3xl">visibility</span>
 </div>
 </div>
-<div class="group relative overflow-hidden rounded-xl bg-gray-200 dark:bg-gray-800 aspect-[4/3] cursor-pointer card-hover" onclick="openProjectModal('venus')">
-<div class="absolute inset-0 bg-gradient-to-br from-orange-500 to-red-600 flex items-center justify-center">
-<span class="text-white text-4xl font-bold">Venus PC</span>
-</div>
+<div class="portfolio-item group relative overflow-hidden rounded-xl bg-gray-200 dark:bg-gray-800 aspect-[4/3] cursor-pointer card-hover" data-category="Full-Stack" onclick="openProjectModal('venus')">
+<img src="/Venus_PC.jpg" alt="Venus PC Care Web Application" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"/>
 <div class="absolute inset-0 bg-primary/80 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col items-center justify-center space-y-2 p-4">
 <p class="text-white text-sm font-semibold text-center">PC Care Web Application</p>
 <p class="text-white text-xs text-center">React, Node.js, Express, MongoDB</p>
 <span class="material-symbols-outlined text-white text-3xl">visibility</span>
 </div>
 </div>
-<div class="group relative overflow-hidden rounded-xl bg-gray-200 dark:bg-gray-800 aspect-[4/3] cursor-pointer card-hover" onclick="openProjectModal('helping')">
-<div class="absolute inset-0 bg-gradient-to-br from-pink-500 to-rose-600 flex items-center justify-center">
-<span class="text-white text-4xl font-bold">Helping Birds</span>
-</div>
+<div class="portfolio-item group relative overflow-hidden rounded-xl bg-gray-200 dark:bg-gray-800 aspect-[4/3] cursor-pointer card-hover" data-category="Full-Stack" onclick="openProjectModal('helping')">
+<img src="/Helping_birds.jpg" alt="Helping Birds Web Application" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"/>
 <div class="absolute inset-0 bg-primary/80 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col items-center justify-center space-y-2 p-4">
 <p class="text-white text-sm font-semibold text-center">Social Assistance Platform</p>
 <p class="text-white text-xs text-center">React, Node.js, Express, MongoDB</p>
 <span class="material-symbols-outlined text-white text-3xl">visibility</span>
 </div>
 </div>
-<div class="group relative overflow-hidden rounded-xl bg-gray-200 dark:bg-gray-800 aspect-[4/3] cursor-pointer card-hover" onclick="openProjectModal('playwright')">
-<div class="absolute inset-0 bg-gradient-to-br from-indigo-500 to-blue-600 flex items-center justify-center">
-<span class="text-white text-4xl font-bold">Playwright QA</span>
-</div>
+<div class="portfolio-item group relative overflow-hidden rounded-xl bg-gray-200 dark:bg-gray-800 aspect-[4/3] cursor-pointer card-hover" data-category="QA Projects" onclick="openProjectModal('playwright')">
+<img src="/Playwright_QA.png" alt="Playwright QA Exam Project" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"/>
 <div class="absolute inset-0 bg-primary/80 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col items-center justify-center space-y-2 p-4">
 <p class="text-white text-sm font-semibold text-center">QA Exam Project</p>
 <p class="text-white text-xs text-center">Playwright, Test Automation</p>
 <span class="material-symbols-outlined text-white text-3xl">visibility</span>
 </div>
 </div>
-<div class="group relative overflow-hidden rounded-xl bg-gray-200 dark:bg-gray-800 aspect-[4/3] cursor-pointer card-hover" onclick="openProjectModal('scout')">
-<div class="absolute inset-0 bg-gradient-to-br from-cyan-500 to-blue-600 flex items-center justify-center">
-<span class="text-white text-4xl font-bold">Scout</span>
-</div>
+<div class="portfolio-item group relative overflow-hidden rounded-xl bg-gray-200 dark:bg-gray-800 aspect-[4/3] cursor-pointer card-hover" data-category="Full-Stack" onclick="openProjectModal('scout')">
+<img src="/Scout.jpg" alt="Scout TypeScript Project" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"/>
 <div class="absolute inset-0 bg-primary/80 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col items-center justify-center space-y-2 p-4">
 <p class="text-white text-sm font-semibold text-center">TypeScript Project</p>
 <p class="text-white text-xs text-center">TypeScript, JavaScript</p>
@@ -585,7 +639,7 @@
 </div>
 
 <!-- Contact Section -->
-<section class="py-24 bg-gray-50 dark:bg-gray-900/50 relative z-10" id="contact">
+<section class="py-24 bg-white dark:bg-gray-900/50 relative z-10" id="contact">
 <div class="container mx-auto px-6 md:px-24">
 <h2 class="section-title">Contact</h2>
 <p class="mb-4">Feel free to get in touch with me.</p>
@@ -632,7 +686,7 @@
 </div>
 </div>
 <div class="md:col-span-8">
-<div class="bg-background-light dark:bg-background-dark p-8 rounded-xl shadow-lg">
+<div class="card-modern dark:bg-background-dark p-8">
 <form id="contactForm" action="#" class="grid grid-cols-2 gap-6" method="POST" onsubmit="handleFormSubmit(event)">
 <div class="col-span-2 md:col-span-1">
 <label class="block text-sm font-medium mb-2">Your Name</label>
@@ -658,7 +712,7 @@
 <textarea class="w-full px-4 py-3 rounded-lg border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 focus:ring-primary focus:border-primary" placeholder="Hello, I'd like to talk about..." rows="6" required></textarea>
 </div>
 <div class="col-span-2 flex justify-center">
-<button class="bg-primary hover:bg-opacity-90 text-white font-semibold py-3 px-10 rounded-full transition-all shadow-md transform hover:scale-105" type="submit">
+<button class="btn-primary py-3 px-10" type="submit">
                                     Send Message
                                 </button>
 </div>
@@ -673,7 +727,7 @@ Message sent successfully! I'll get back to you soon.
 </div>
 </section>
 
-<footer class="py-12 border-t border-gray-100 dark:border-gray-800 text-center relative z-10 bg-white dark:bg-background-dark">
+<footer class="py-12 border-t border-primary/10 dark:border-gray-800 text-center relative z-10 bg-ghost-white dark:bg-background-dark">
 <div class="container mx-auto px-6">
 <p class="text-sm text-gray-500">© Copyright 2024. All Rights Reserved</p>
 <p class="text-xs text-gray-400 mt-2">Designed by Kalaikumar Janushan</p>
@@ -766,13 +820,26 @@ Message sent successfully! I'll get back to you soon.
         
         // Portfolio Filter
         function filterProjects(filter) {
+            // Update button states
             document.querySelectorAll('#portfolio button').forEach(btn => {
                 if (btn.textContent.trim() === filter || (filter === 'All' && btn.textContent.trim() === 'All')) {
-                    btn.classList.remove('bg-gray-100', 'dark:bg-gray-800');
-                    btn.classList.add('bg-primary', 'text-white');
+                    btn.classList.remove('bg-primary-light', 'text-primary', 'border-primary/20');
+                    btn.classList.add('bg-primary', 'text-white', 'shadow-soft-blue');
                 } else {
-                    btn.classList.remove('bg-primary', 'text-white');
-                    btn.classList.add('bg-gray-100', 'dark:bg-gray-800');
+                    btn.classList.remove('bg-primary', 'text-white', 'shadow-soft-blue');
+                    btn.classList.add('bg-primary-light', 'text-primary', 'border', 'border-primary/20');
+                }
+            });
+            
+            // Filter portfolio items
+            const portfolioItems = document.querySelectorAll('.portfolio-item');
+            portfolioItems.forEach(item => {
+                const category = item.getAttribute('data-category');
+                if (filter === 'All' || category === filter) {
+                    item.style.display = 'block';
+                    item.style.animation = 'fadeIn 0.5s ease-in';
+                } else {
+                    item.style.display = 'none';
                 }
             });
         }
@@ -902,11 +969,6 @@ Message sent successfully! I'll get back to you soon.
             }, 500);
         }
         
-        // Download Resume
-        function downloadResume() {
-            // In a real implementation, this would download the actual resume PDF
-            alert('Resume download will be available soon. Please contact me at januzebra1972@gmail.com for my resume.');
-        }
         
         // Keyboard Navigation
         document.addEventListener('keydown', (e) => {
