@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "buildCommand": "cp -r public/* . || true",
+  "buildCommand": "bash -c 'chmod +x build.sh && ./build.sh'",
   "outputDirectory": ".",
   "framework": null,
-  "installCommand": ""
+  "installCommand": "echo 'No dependencies to install'"
 }
 
